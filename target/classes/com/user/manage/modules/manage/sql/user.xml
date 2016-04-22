@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html>
+<mysql>
+	<sql id="getOneUserInfo">
+		<![CDATA[
+			select 
+				*
+			from local_user_tab  where username=? and password =?
+		]]>
+	</sql>
+	<sql id="getUserInfoByPage">
+		<![CDATA[
+			select 
+				*
+			from user  limit 10
+		]]>
+	</sql>
+</mysql>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/user/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>JDBCInitServlet</servlet-name>
+		<servlet-class>com.user.manage.init.JDBCInitServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>penguinMVC</servlet-name>
+		<servlet-class>org.dc.penguinMVC.core.ServletCore</servlet-class>
+		<init-param>
+			<description>配置要扫描包及其子包, 如果有多个包以逗号分隔</description>
+			<param-name>basePackage</param-name>
+			<param-value>com.user.manage.modules.manage.controller</param-value>
+		</init-param>
+		<init-param>
+			<description>添加请求前后的拦截器,多个拦截器用逗号分隔</description>
+			<param-name>interceptor</param-name>
+			<param-value>com.user.manage.interceptor.UrlApiLogInterceptor</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>penguinMVC</servlet-name>
+		<url-pattern>/manage/*</url-pattern>
+	</servlet-mapping>
+</web-app>
