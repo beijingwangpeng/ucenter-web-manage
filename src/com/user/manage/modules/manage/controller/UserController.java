@@ -59,7 +59,6 @@ public class UserController {
 			
 			Page page = userDataService.userQuery(u,pageNo);
 			request.setAttribute("page", page);
-			return "/WEB-INF/index.jsp";
 		} catch (Exception e) {
 			logger.error("",e);
 		}
@@ -75,5 +74,30 @@ public class UserController {
 			logger.error("",e);
 		}
 		return "/WEB-INF/user/userQuery/userDetails.jsp";
+	}
+	@RequestMapping("/userUpdate")
+	public String userUpdate(HttpServletRequest request){
+		User u =null;
+		boolean flag = false;
+		try{
+			u = AppUtils.parseObj(request, User.class);
+			flag = userDataService.userUpdate(u);
+		}catch(Exception e){
+			logger.error("",e);
+		}
+		request.setAttribute("flag", flag);
+		return "/manage/userDetails?UID="+u.getUID();
+	}
+	@RequestMapping("/deleteUser")
+	public String deleteUser(HttpServletRequest request){
+		boolean flag = false;
+		try{
+			flag = userDataService.deleteUser(request.getParameter("idlist"));
+			request.setAttribute("flag", flag);
+			this.userQuery(request);
+		}catch(Exception e){
+			logger.error("",e);
+		}
+		return "/WEB-INF/index.jsp";
 	}
 }

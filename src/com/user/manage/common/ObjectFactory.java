@@ -59,8 +59,7 @@ public class ObjectFactory {
             if(o!=null){
                 return (T) o;
             }
-            Object class_obj = ObjectFactory.getSingleton(clazz);
-            Object proxyInstance =JDBCProxy.getInstance().getTarget(class_obj);
+            Object proxyInstance =JDBCProxy.getInstance().getTarget(clazz);
             objMap.put(clazz, proxyInstance);
             return (T) proxyInstance;
         } catch (Exception e) {

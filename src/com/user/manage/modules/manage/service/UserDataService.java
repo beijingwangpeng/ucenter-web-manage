@@ -1,8 +1,10 @@
 package com.user.manage.modules.manage.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.dc.jdbc.anno.Transactional;
 import org.dc.jdbc.helper.DBHelper;
 
 import com.user.manage.common.Configure;
@@ -52,9 +54,39 @@ public class UserDataService {
 		page.setDataList(ucenterHelper.selectList(sql+whereSql.toString(),User.class,paramlist));
 		return page;
 	}
-
-	public User userDetails(long uID) throws Exception{
+	
+	public User userDetails(long UID) throws Exception{
 		
-		return null;
+		return ucenterHelper.selectOne("$user.getUserDetails", User.class,UID);
+	}
+	@Transactional
+	public boolean userUpdate(User u) throws Exception {
+		u.setMODIFY_TIME(new Date());
+		int rowNum = ucenterHelper.update("$user.updateUser", u);
+		
+		if(rowNum==1){
+			int rNum = ucenterHelper.update("$user.updateUserInfo", u);
+			if(rNum==0){
+				ucenterHelper.insert("$user.insertUserInfo", u);
+			}
+		}else{//回滚之前的所有操作
+			ucenterHelper.rollback();
+		}
+		return true;
+	}
+
+	public boolean deleteUser(String idList) throws Exception {
+		Object[] ids = idList.split(",");
+		StringBuilder sb = new StringBuilder("update user set STATUS = -1 where UID in (");
+		for (int i = 0; i < ids.length; i++) {
+			if(i==ids.length-1){
+				sb.append("?").append(")");
+			}else{
+				sb.append("?,");
+			}
+			
+		}
+		int rowNum = ucenterHelper.update(sb.toString(), ids);
+		return rowNum>0;
 	}
 }

@@ -8,11 +8,24 @@
 			from local_user_tab  where username=? and password =?
 		]]>
 	</sql>
-	<sql id="getUserInfoByPage">
+	<sql id="getUserDetails">
 		<![CDATA[
-			select 
-				*
-			from user  limit 10
+			select * from user t1 left join user_info_tab t2 on t1.UID=t2.userId where t1.UID = ?
 		]]>
+	</sql>
+	<sql id="updateUser">
+		update user set 
+			PASSPORT=#{PASSPORT},NICKNAME=#{NICKNAME},REAL_NAME=#{REAL_NAME},MOBILE=#{MOBILE},EMAIL=#{EMAIL},
+			ID_CARD=#{ID_CARD},ACTI_FLAG=#{ACTI_FLAG},STATUS=#{STATUS},REG_APP_ID=#{REG_APP_ID},MODIFY_TIME=#{MODIFY_TIME}
+		where UID=#{UID}
+	</sql>
+	<sql id="updateUserInfo">
+		update user_info_tab set 
+			areaID=#{areaID},sex=#{sex},age=#{age},schoolID=#{schoolID},subject=#{subject},
+			stage=#{stage},grade=#{grade},qq=#{qq}
+		where userId=#{UID}
+	</sql>
+	<sql id="insertUserInfo">
+		insert into user_info_tab(userId,areaID,sex,age,schoolID,subject,stage,grade,qq) values(#{UID},#{areaID},#{sex},#{age},#{schoolID},#{subject},#{stage},#{grade},#{qq})
 	</sql>
 </mysql>
