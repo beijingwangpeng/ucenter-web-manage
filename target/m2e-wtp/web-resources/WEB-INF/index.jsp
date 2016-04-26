@@ -96,6 +96,9 @@
    	<c:if test="${sessionScope.myurl eq '/manage/userQuery'}">
    		<jsp:include page="/WEB-INF/user/userQuery/userQuery.jsp"></jsp:include>
    	</c:if>
+   	<c:if test="${sessionScope.myurl eq '/manage/userImport'}">
+   		<jsp:include page="/WEB-INF/user/userImport/userImport.jsp"></jsp:include>
+   	</c:if>
 	  
     
     

@@ -100,4 +100,14 @@ public class UserController {
 		}
 		return "/WEB-INF/index.jsp";
 	}
+	@RequestMapping("/userImport")
+	public String userImport(HttpServletRequest request){
+		String myurl = request.getParameter("myurl");
+		if(myurl!=null){
+			HttpSession session = request.getSession();
+			session.setAttribute(Common.myurl_key, request.getParameter("myurl"));
+			session.setAttribute(Common.tId_key, request.getParameter("tId"));
+		}
+		return "/WEB-INF/index.jsp";
+	}
 }

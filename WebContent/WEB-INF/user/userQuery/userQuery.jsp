@@ -5,6 +5,8 @@ td,th{border:1px solid #DDD;padding-top:15px;padding-bottom: 15px;padding-left: 
 .selected{ background:#f1f1f1;font-weight: bold;}
 .even{background:#F9F9F9;} 
 </style>
+<script src="${pageContext.request.contextPath }/js/laydate/laydate.js"></script>
+
 <script>
 function delUser(){
 	if(window.confirm('你确定删除吗？')){
@@ -74,7 +76,15 @@ $(function(){
 			PASSPORT：<input name="PASSPORT" value="${param.PASSPORT}" />
 			MOBILE：<input name="MOBILE" value="${param.MOBILE}" />
 			真实姓名：<input name="REAL_NAME" value="${param.REAL_NAME}" />
-			<input type="submit" value="查询" onclick="userQuery()" style="background-color: #286A38;color: white;height: 30px;width: 55px;">
+			<br /><br />
+			<div class="inline layinput">
+				&nbsp;&nbsp;&nbsp;用户创建开始时间：<input name="startTime" value="${param.startTime}" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+				<label class="laydate-icon"></label>
+				&nbsp;&nbsp;&nbsp;用户创建结束时间：<input name="endTime" value="${param.endTime }" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true,istoday: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+				<label class="laydate-icon"></label>
+			</div>
+			<br /><br />
+			&nbsp;&nbsp;&nbsp;<input type="submit" value="查询" onclick="userQuery()" style="background-color: #286A38;color: white;height: 30px;width: 55px;">
 		</form>
 		<br />
 	</div>
@@ -119,4 +129,5 @@ $(function(){
 	&nbsp;<a href="javascript:void(0)" onclick="changePge(${page.pageCount})">尾页</a>
 	&nbsp;当前第${page.pageNo }页
 	&nbsp;共${page.pageCount}页
+	<br/><br/>
 </div>

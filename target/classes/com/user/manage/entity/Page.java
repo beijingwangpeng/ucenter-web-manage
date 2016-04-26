@@ -12,7 +12,7 @@ public class Page {
 	/** 当前页号  默认第一页*/
 	private long pageNo = 1;
 	/** 页面总大小 */
-	private long pageSize = 10;
+	private long pageSize = 20;
 	/** 页面实体集合 */
 	private List<?> dataList;
 	/** 数据起始位  */

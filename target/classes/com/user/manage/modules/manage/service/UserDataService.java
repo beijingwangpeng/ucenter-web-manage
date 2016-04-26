@@ -43,6 +43,14 @@ public class UserDataService {
 			whereSql.append(" and MOBILE like ? ");
 			paramlist.add("%"+u.getMOBILE()+"%");
 		}
+		if(StringUtils.isNotEmpty(u.getStartTime())){
+			whereSql.append(" and CREATE_TIME > ? ");
+			paramlist.add(u.getStartTime());
+		}
+		if(StringUtils.isNotEmpty(u.getEndTime())){
+			whereSql.append(" and CREATE_TIME < ? ");
+			paramlist.add(u.getEndTime());
+		}
 		//计算页面总数
 		page.setRecordCount(ucenterHelper.selectOne("select count(*) from user where 1=1 "+whereSql.toString(), Long.class,paramlist));
 		page.setPageNo(pageNo);

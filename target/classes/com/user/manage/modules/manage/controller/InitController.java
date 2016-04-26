@@ -15,13 +15,17 @@ import com.user.manage.modules.manage.service.CommonService;
 @Controller
 @RequestMapping("/manage")
 public class InitController {
+	
+	private static List<NavTree> navList = null;
+	
 	private static Log logger = LogFactory.getLog(InitController.class);
 	private CommonService commonService = ObjectFactory.getSingletonByProxy(CommonService.class);
 	@RequestMapping("/initTree")
 	public void initTree(){
-		List<NavTree> navList = null;
 		try {
-			navList = commonService.initTree();
+			if(navList==null){
+				navList = commonService.initTree();
+			}
 		} catch (Exception e) {
 			logger.error("",e);
 		}finally{
