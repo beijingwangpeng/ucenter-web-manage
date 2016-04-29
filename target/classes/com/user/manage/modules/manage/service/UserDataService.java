@@ -14,8 +14,8 @@ import com.user.manage.entity.Page;
 import com.user.manage.entity.User;
 
 public class UserDataService {
-	private DBHelper manageHelper = new DBHelper(Configure.ucenter_user_manageSourceTest);
-	private DBHelper ucenterHelper = new DBHelper(Configure.ucenterSourceTest);
+	public static DBHelper manageHelper = new DBHelper(Configure.ucenter_user_manageSourceTest);
+	public static DBHelper ucenterHelper = new DBHelper(Configure.ucenterSourceTest);
 	
 	public LocalUser login(String username,String password) throws Exception {
 		LocalUser user = manageHelper.selectOne("$user.getOneUserInfo",LocalUser.class, username,password);

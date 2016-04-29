@@ -163,7 +163,7 @@ public class ServletCore implements Servlet{
 				interceptorList.get(i).before(requestHandle);
 			}
 			if(requestHandle==null){//请求不到资源
-				throw new ServletException("请求地址有误，未找到资源");
+				throw new ServletException("请求地址有误，未找到资源:"+servletPath);
 			}
 			Object url = requestHandle.excute(req.getParameterMap(),request,response,req.getSession());
 			if(url !=null ){
